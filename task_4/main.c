@@ -77,13 +77,9 @@ void setDir(int change){
 }
 
 int checkWall(){
-    if(labyrinth[row+moveRow][col+moveCol] != '-' && labyrinth[row+moveRow][col+moveCol] != '|' ){
-        return 1;
-    }
-    else{
-        return 0;
-    }
+    return (labyrinth[row+moveRow][col+moveCol] != '-' && labyrinth[row+moveRow][col+moveCol] != '|' );
 }
+
 void printLab(){
     for(int i = 0; i < sizeof(labyrinth)/sizeof(labyrinth[0]); i++){
         for(int j = 0; j < sizeof(labyrinth[0])/sizeof(labyrinth[0][0]) ; j++){
