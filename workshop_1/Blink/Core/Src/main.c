@@ -92,6 +92,19 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  int del = 100;
+	         HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, SET);
+	         HAL_Delay(del);
+	         HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, RESET);
+	         HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, SET);
+	         HAL_Delay(del);
+	         HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, RESET);
+	         HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, SET);
+	         HAL_Delay(del);
+	         HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, RESET);
+	         HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, SET);
+	         HAL_Delay(del);
+	         HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, RESET);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
