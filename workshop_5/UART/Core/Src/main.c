@@ -39,9 +39,9 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-ADC_HandleTypeDef hadc1;
+ADC_HandleTypeDef hadc2;
 
-TIM_HandleTypeDef htim1;
+TIM_HandleTypeDef htim6;
 
 UART_HandleTypeDef huart3;
 
@@ -53,9 +53,22 @@ UART_HandleTypeDef huart3;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART3_UART_Init(void);
-static void MX_ADC1_Init(void);
-static void MX_TIM1_Init(void);
+static void MX_TIM6_Init(void);
+static void MX_ADC2_Init(void);
 /* USER CODE BEGIN PFP */
+
+#ifdef __GNUC__
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#else
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif
+
+PUTCHAR_PROTOTYPE
+{
+  HAL_UART_Transmit(&huart3, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
+  return ch;
+}
+
 
 /* USER CODE END PFP */
 
@@ -66,19 +79,26 @@ static uint8_t redState = 0;
 static uint8_t orangeState = 0;
 static uint8_t greenState = 0;
 static uint32_t adc_inTemp_Value = 0;
+static uint8_t temp;
+
 volatile HAL_StatusTypeDef adc1PoolResult;
 
-void print(char num){
-	HAL_UART_Transmit(&huart3, (uint8_t *)num, 7, 10);
+uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+{
+    return ((((IN - INmin)*(OUTmax - OUTmin))/(INmax - INmin)) + OUTmin);
 }
-void checkTemp(){
-	HAL_UART_Transmit(&huart3, (uint8_t *)"Temp", 4, 10);
-	HAL_ADC_Start(&hadc1);
-	adc1PoolResult = HAL_ADC_PollForConversion(&hadc1, 100);
-	if(adc1PoolResult == HAL_OK){
-		adc_inTemp_Value = HAL_ADC_GetValue(&hadc1);
-		//duty = MAP(adc_inTemp_Value, 1050, 1150, 18, 100);
 
+
+
+void checkTemp(){
+
+	HAL_ADC_Start(&hadc2);
+	adc1PoolResult = HAL_ADC_PollForConversion(&hadc2, 100);
+	if(adc1PoolResult == HAL_OK){
+		adc_inTemp_Value = HAL_ADC_GetValue(&hadc2);
+		temp = 125 - MAP(adc_inTemp_Value, 0, 2050, -25, 100);
+		printf("Temperature: %d\r\n", temp);
+		//HAL_UART_Transmit(&huart3, (uint8_t *)"Temp: ", 6, 10);
 	}
 }
 
@@ -87,11 +107,13 @@ void changeColor(char color) {
     case 'R':
     	HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
 		if(redState == 1){
-			HAL_UART_Transmit(&huart3, (uint8_t *)"Red OFF", 7, 10);
+			printf("Red OFF\r\n");
+			//HAL_UART_Transmit(&huart3, (uint8_t *)"Red OFF", 7, 10);
 			redState = 0;
 		}
 		else{
-			HAL_UART_Transmit(&huart3, (uint8_t *)"Red ON", 6, 10);
+			printf("Red ON\r\n");
+			//HAL_UART_Transmit(&huart3, (uint8_t *)"Red ON", 6, 10);
 			redState = 1;
 		}
 		break;
@@ -99,33 +121,39 @@ void changeColor(char color) {
     case 'B':
     	HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15);
 		if(blueState == 1){
-			HAL_UART_Transmit(&huart3, (uint8_t *)"Blue OFF", 8, 10);
+			printf("Blue OFF\r\n");
+			//HAL_UART_Transmit(&huart3, (uint8_t *)"Blue OFF", 8, 10);
 			blueState = 0;
 		}
 		else{
-			HAL_UART_Transmit(&huart3, (uint8_t *)"Blue ON", 7, 10);
+			printf("Blue ON\r\n");
+			//HAL_UART_Transmit(&huart3, (uint8_t *)"Blue ON", 7, 10);
 			blueState = 1;
 		}
         break;
     case 'G':
     	HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
 		if(greenState == 1){
-			HAL_UART_Transmit(&huart3, (uint8_t *)"Green OFF", 9, 10);
+			printf("Green OFF\r\n");
+			//HAL_UART_Transmit(&huart3, (uint8_t *)"Green OFF", 9, 10);
 			greenState = 0;
 		}
 		else{
-			HAL_UART_Transmit(&huart3, (uint8_t *)"Green ON", 8, 10);
+			printf("Green ON\r\n");
+			//HAL_UART_Transmit(&huart3, (uint8_t *)"Green ON", 8, 10);
 			greenState = 1;
 		}
         break;
     case 'O':
     	HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
         if(orangeState == 1){
-        	HAL_UART_Transmit(&huart3, (uint8_t *)"Orange OFF", 10, 10);
+        	printf("Orange OFF\r\n");
+        	//HAL_UART_Transmit(&huart3, (uint8_t *)"Orange OFF", 10, 10);
         	orangeState = 0;
         }
         else{
-        	HAL_UART_Transmit(&huart3, (uint8_t *)"Orange ON", 9, 10);
+        	printf("Orange ON\r\n");
+        	//HAL_UART_Transmit(&huart3, (uint8_t *)"Orange ON", 9, 10);
         	orangeState = 1;
         }
         break;
@@ -164,8 +192,8 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART3_UART_Init();
-  MX_ADC1_Init();
-  MX_TIM1_Init();
+  MX_TIM6_Init();
+  MX_ADC2_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -175,13 +203,11 @@ int main(void)
 
 
 
-  HAL_TIM_Base_Start_IT(&htim1);
+  HAL_TIM_Base_Start_IT(&htim6);
 
 
   while (1)
   {
-
-
 	  char rcvBuf[1];
 	  HAL_StatusTypeDef result;
 	  result = HAL_UART_Receive(&huart3, rcvBuf, 1, 10);
@@ -189,63 +215,7 @@ int main(void)
 	  if(result == HAL_OK){
 		  changeColor(rcvBuf[0]);
 	  }
-//		  switch(rcvBuf[0]){
-//			  case 'B':
-//				  HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15);
-//				  if(blueState == 1){
-//					  HAL_UART_Transmit(&huart3, (uint8_t *)"Blue OFF", 8, 10);
-//					  blueState = 0;
-//				  }
-//				  else{
-//					  HAL_UART_Transmit(&huart3, (uint8_t *)"Blue ON", 7, 10);
-//					  blueState = 1;
-//				  }
-//				  break;
-//
-//			  case 'R':
-//				  HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
-//				  if(redState == 1){
-//					  HAL_UART_Transmit(&huart3, (uint8_t *)"Red OFF", 7, 10);
-//					  redState = 0;
-//				  }
-//				  else{
-//					  HAL_UART_Transmit(&huart3, (uint8_t *)"Red ON", 6, 10);
-//					  redState = 1;
-//				  }
-//				  break;
-//
-//			  case 'G':
-//				  HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
-//				  if(greenState == 1){
-//					  HAL_UART_Transmit(&huart3, (uint8_t *)"Green OFF", 9, 10);
-//					  greenState = 0;
-//				  }
-//				  else{
-//					  HAL_UART_Transmit(&huart3, (uint8_t *)"Green ON", 8, 10);
-//					  greenState = 1;
-//				  }
-//				  break;
-//
-//			  case 'O':
-//				  HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
-//				  if(orangeState == 1){
-//					  HAL_UART_Transmit(&huart3, (uint8_t *)"Orange OFF", 10, 10);
-//					  orangeState = 0;
-//				  }
-//				  else{
-//					  HAL_UART_Transmit(&huart3, (uint8_t *)"Orange ON", 9, 10);
-//					  orangeState = 1;
-//				  }
-//				  break;
-////			  default:
-////				  HAL_UART_Transmit(&huart3, (uint8_t *)"UnexpCmd", 8, 10);
-////				  break;
-//		  }
-	  }
-
-
-
-
+   }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -294,101 +264,92 @@ void SystemClock_Config(void)
 }
 
 /**
-  * @brief ADC1 Initialization Function
+  * @brief ADC2 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_ADC1_Init(void)
+static void MX_ADC2_Init(void)
 {
 
-  /* USER CODE BEGIN ADC1_Init 0 */
+  /* USER CODE BEGIN ADC2_Init 0 */
 
-  /* USER CODE END ADC1_Init 0 */
+  /* USER CODE END ADC2_Init 0 */
 
   ADC_ChannelConfTypeDef sConfig = {0};
 
-  /* USER CODE BEGIN ADC1_Init 1 */
+  /* USER CODE BEGIN ADC2_Init 1 */
 
-  /* USER CODE END ADC1_Init 1 */
+  /* USER CODE END ADC2_Init 1 */
 
   /** Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
   */
-  hadc1.Instance = ADC1;
-  hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV2;
-  hadc1.Init.Resolution = ADC_RESOLUTION_12B;
-  hadc1.Init.ScanConvMode = DISABLE;
-  hadc1.Init.ContinuousConvMode = ENABLE;
-  hadc1.Init.DiscontinuousConvMode = DISABLE;
-  hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
-  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
-  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-  hadc1.Init.NbrOfConversion = 1;
-  hadc1.Init.DMAContinuousRequests = DISABLE;
-  hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
-  if (HAL_ADC_Init(&hadc1) != HAL_OK)
+  hadc2.Instance = ADC2;
+  hadc2.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV2;
+  hadc2.Init.Resolution = ADC_RESOLUTION_12B;
+  hadc2.Init.ScanConvMode = DISABLE;
+  hadc2.Init.ContinuousConvMode = DISABLE;
+  hadc2.Init.DiscontinuousConvMode = DISABLE;
+  hadc2.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+  hadc2.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+  hadc2.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  hadc2.Init.NbrOfConversion = 1;
+  hadc2.Init.DMAContinuousRequests = DISABLE;
+  hadc2.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
+  if (HAL_ADC_Init(&hadc2) != HAL_OK)
   {
     Error_Handler();
   }
 
   /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
   */
-  sConfig.Channel = ADC_CHANNEL_TEMPSENSOR;
+  sConfig.Channel = ADC_CHANNEL_9;
   sConfig.Rank = 1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_480CYCLES;
-  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
+  if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN ADC1_Init 2 */
+  /* USER CODE BEGIN ADC2_Init 2 */
 
-  /* USER CODE END ADC1_Init 2 */
+  /* USER CODE END ADC2_Init 2 */
 
 }
 
 /**
-  * @brief TIM1 Initialization Function
+  * @brief TIM6 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_TIM1_Init(void)
+static void MX_TIM6_Init(void)
 {
 
-  /* USER CODE BEGIN TIM1_Init 0 */
+  /* USER CODE BEGIN TIM6_Init 0 */
 
-  /* USER CODE END TIM1_Init 0 */
+  /* USER CODE END TIM6_Init 0 */
 
-  TIM_SlaveConfigTypeDef sSlaveConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
 
-  /* USER CODE BEGIN TIM1_Init 1 */
+  /* USER CODE BEGIN TIM6_Init 1 */
 
-  /* USER CODE END TIM1_Init 1 */
-  htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 16000;
-  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 5000;
-  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim1.Init.RepetitionCounter = 0;
-  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sSlaveConfig.SlaveMode = TIM_SLAVEMODE_TRIGGER;
-  sSlaveConfig.InputTrigger = TIM_TS_ITR0;
-  if (HAL_TIM_SlaveConfigSynchro(&htim1, &sSlaveConfig) != HAL_OK)
+  /* USER CODE END TIM6_Init 1 */
+  htim6.Instance = TIM6;
+  htim6.Init.Prescaler = 16000;
+  htim6.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim6.Init.Period = 5000;
+  htim6.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim6) != HAL_OK)
   {
     Error_Handler();
   }
   sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
   sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim6, &sMasterConfig) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN TIM1_Init 2 */
+  /* USER CODE BEGIN TIM6_Init 2 */
 
-  /* USER CODE END TIM1_Init 2 */
+  /* USER CODE END TIM6_Init 2 */
 
 }
 
@@ -435,7 +396,7 @@ static void MX_GPIO_Init(void)
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOH_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
 

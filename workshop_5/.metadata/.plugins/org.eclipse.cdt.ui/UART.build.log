@@ -1,17 +1,72 @@
-17:59:30 **** Incremental Build of configuration Debug for project UART ****
+20:32:54 **** Incremental Build of configuration Debug for project UART ****
 make -j8 all 
-arm-none-eabi-gcc "../Core/Src/stm32f4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32f4xx_it.d" -MT"Core/Src/stm32f4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_it.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'checkTemp':
+../Core/Src/main.c:100:3: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  100 |   printf("Temperature: %d\r\n", temp);
+      |   ^~~~~~
+../Core/Src/main.c:100:3: warning: incompatible implicit declaration of built-in function 'printf'
+../Core/Src/main.c:21:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   20 | #include "main.h"
+  +++ |+#include <stdio.h>
+   21 | 
+../Core/Src/main.c: In function 'changeColor':
+../Core/Src/main.c:110:4: warning: incompatible implicit declaration of built-in function 'printf'
+  110 |    printf("Red OFF\r\n");
+      |    ^~~~~~
+../Core/Src/main.c:110:4: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c:115:4: warning: incompatible implicit declaration of built-in function 'printf'
+  115 |    printf("Red ON\r\n");
+      |    ^~~~~~
+../Core/Src/main.c:115:4: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c:124:4: warning: incompatible implicit declaration of built-in function 'printf'
+  124 |    printf("Blue OFF\r\n");
+      |    ^~~~~~
+../Core/Src/main.c:124:4: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c:129:4: warning: incompatible implicit declaration of built-in function 'printf'
+  129 |    printf("Blue ON\r\n");
+      |    ^~~~~~
+../Core/Src/main.c:129:4: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c:137:4: warning: incompatible implicit declaration of built-in function 'printf'
+  137 |    printf("Green OFF\r\n");
+      |    ^~~~~~
+../Core/Src/main.c:137:4: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c:142:4: warning: incompatible implicit declaration of built-in function 'printf'
+  142 |    printf("Green ON\r\n");
+      |    ^~~~~~
+../Core/Src/main.c:142:4: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c:150:10: warning: incompatible implicit declaration of built-in function 'printf'
+  150 |          printf("Orange OFF\r\n");
+      |          ^~~~~~
+../Core/Src/main.c:150:10: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c:155:10: warning: incompatible implicit declaration of built-in function 'printf'
+  155 |          printf("Orange ON\r\n");
+      |          ^~~~~~
+../Core/Src/main.c:155:10: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:213:39: warning: pointer targets in passing argument 2 of 'HAL_UART_Receive' differ in signedness [-Wpointer-sign]
+  213 |    result = HAL_UART_Receive(&huart3, rcvBuf, 1, 10);
+      |                                       ^~~~~~
+      |                                       |
+      |                                       char *
+In file included from ../Core/Inc/stm32f4xx_hal_conf.h:406,
+                 from ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:29,
+                 from ../Core/Inc/main.h:40,
+                 from ../Core/Src/main.c:20:
+../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:723:72: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'char *'
+  723 | HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+      |                                                               ~~~~~~~~~^~~~~
 arm-none-eabi-gcc -o "UART.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_5\UART\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="UART.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: UART.elf
  
 arm-none-eabi-size   UART.elf 
 arm-none-eabi-objdump -h -S  UART.elf  > "UART.list"
    text	   data	    bss	    dec	    hex	filename
-  14180	     20	   1796	  15996	   3e7c	UART.elf
+  18328	    120	   1816	  20264	   4f28	UART.elf
 Finished building: default.size.stdout
  
 Finished building: UART.list
  
 
-17:59:31 Build Finished. 0 errors, 0 warnings. (took 863ms)
+20:32:55 Build Finished. 0 errors, 11 warnings. (took 808ms)
 
