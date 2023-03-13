@@ -1,0 +1,49 @@
+22:42:54 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Library/PCA9685/PCA9685.c: In function 'pca9685_enable':
+../Library/PCA9685/PCA9685.c:18:3: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   18 |   printf("pca9685 was turned on\r\n");
+      |   ^~~~~~
+../Library/PCA9685/PCA9685.c:18:3: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+../Library/PCA9685/PCA9685.c:22:3: warning: incompatible implicit declaration of built-in function 'printf'
+   22 |   printf("pca9685 was turned off\r\n");
+      |   ^~~~~~
+../Library/PCA9685/PCA9685.c:22:3: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c: In function 'pca9685_frequency':
+../Library/PCA9685/PCA9685.c:52:2: warning: incompatible implicit declaration of built-in function 'printf'
+   52 |  printf("Frequency was set: %d Hz\r\n", freq);
+      |  ^~~~~~
+../Library/PCA9685/PCA9685.c:52:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c: In function 'pca9685_setChannelPWM':
+../Library/PCA9685/PCA9685.c:97:2: warning: incompatible implicit declaration of built-in function 'printf'
+   97 |  printf("PWM was set on channel %d with duty %d %\r\n", channelNum, duty);
+      |  ^~~~~~
+../Library/PCA9685/PCA9685.c:97:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c:97:50: warning: unknown conversion type character '\x0d' in format [-Wformat=]
+   97 |  printf("PWM was set on channel %d with duty %d %\r\n", channelNum, duty);
+      |                                                  ^~
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: note: include '<stdio.h>' or provide a declaration of 'printf'
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22892	    120	   1744	  24756	   60b4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+
+22:42:55 Build Finished. 0 errors, 7 warnings. (took 738ms)
+

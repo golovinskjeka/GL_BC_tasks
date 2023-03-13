@@ -1,0 +1,6 @@
+#pragma once
+
+#include "main.h"
+
+void test();
+void MX_I2C1_Init(void);

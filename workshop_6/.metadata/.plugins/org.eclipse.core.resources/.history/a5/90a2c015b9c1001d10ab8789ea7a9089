@@ -1,0 +1,130 @@
+#include <PCA9685.h>
+
+#define LED0_ON_L 0x06
+#define LED0_ON_H 0x07
+#define LED0_OFF_L 0x08
+#define LED0_OFF_H 0x09
+
+
+uint8_t devId = 0x80;
+uint8_t TxBuffer[0];
+
+static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+{
+    return ((((IN - INmin)*(OUTmax - OUTmin))/(INmax - INmin)) + OUTmin);
+}
+
+
+void pca9685_enable(int8_t state){
+	if(state){
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
+	}
+	else{
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_SET);
+	}
+}
+
+void pca9685_sleep(int8_t state){
+	if(state){
+	  TxBuffer[0] = 0x00;
+	  TxBuffer[1] = 0x01;
+	  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+	}
+	else{
+	  TxBuffer[0] = 0x00;
+	  TxBuffer[1] = 0x11;
+	  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+	}
+}
+
+void pca9685_frequency(uint16_t freq){ // 24...1526
+	if(freq > 1526){
+		freq = 1526;
+	}
+	else if (freq < 24){
+		freq = 24;
+	}
+	freq = MAP(freq, 1526, 24, 0x03, 0xFF);
+	TxBuffer[0] = 0xFE;
+	TxBuffer[1] = 0x03;
+	HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+}
+
+void pca9685_setChannelPWM(uint8_t channelNum, int8_t duty){ //channelNum = 0...15, duty = 0...100
+
+	TxBuffer[0] = 0xFE;
+	TxBuffer[1] = 0x03;
+	HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+
+	if(duty > 100){
+		duty = 100;
+	}
+	else if (duty < 0){
+		duty = 0;
+	}
+
+	if(channelNum > 15){
+		channelNum = 15;
+	}
+	else if (channelNum < 0){
+		channelNum = 0;
+	}
+
+	uint8_t LEDn_ON_L = 0x06 + (channelNum * 4);
+	uint8_t LEDn_ON_H = 0x07 + (channelNum * 4);
+	uint8_t LEDn_OFF_L = 0x08 + (channelNum * 4);
+	uint8_t LEDn_OFF_H = 0x09 + (channelNum * 4);
+
+	uint16_t valueOFF = (duty * 4095) / 100;
+	uint8_t highByteOFF = (valueOFF >> 8) & 0xFF;
+	uint8_t lowByteOFF = valueOFF & 0xFF;
+
+	TxBuffer[0] = LEDn_ON_L;
+	TxBuffer[1] = 0x00;
+	HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+
+	TxBuffer[0] = LEDn_ON_H;
+	TxBuffer[1] = 0x00;
+	HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+
+	TxBuffer[0] = LEDn_OFF_L;
+	TxBuffer[1] = lowByteOFF;
+	HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+
+	TxBuffer[0] = LEDn_OFF_H;
+	TxBuffer[1] = highByteOFF;
+	HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+}
+
+
+
+
+void test(){
+
+  HAL_Delay(10);
+
+  uint8_t devId = 0x80;
+  uint8_t TxBuffer[0];
+
+  TxBuffer[0] = 0x00;
+  TxBuffer[1] = 0x01;
+  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+
+  TxBuffer[0] = 0x06;
+  TxBuffer[1] = 0x65;
+  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+
+  TxBuffer[0] = 0x07;
+  TxBuffer[1] = 0x08;
+  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+
+  TxBuffer[0] = 0x08;
+  TxBuffer[1] = 0x0F;
+  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+
+  TxBuffer[0] = 0x09;
+  TxBuffer[1] = 0x0F;
+  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+}
+
+

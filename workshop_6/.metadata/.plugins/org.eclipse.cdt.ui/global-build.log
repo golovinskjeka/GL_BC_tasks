@@ -1,0 +1,1794 @@
+15:13:32 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'pca9685_sleep':
+../Library/PCA9685/PCA9685.c:25:4: error: 'TxBuffer' undeclared (first use in this function); did you mean 'ITM_RxBuffer'?
+   25 |    TxBuffer[0] = 0x00;
+      |    ^~~~~~~~
+      |    ITM_RxBuffer
+../Library/PCA9685/PCA9685.c:25:4: note: each undeclared identifier is reported only once for each function it appears in
+../Library/PCA9685/PCA9685.c:27:36: error: 'devId' undeclared (first use in this function)
+   27 |    HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+      |                                    ^~~~~
+../Library/PCA9685/PCA9685.c: In function 'pca9685_frequency':
+../Library/PCA9685/PCA9685.c:44:2: error: 'TxBuffer' undeclared (first use in this function); did you mean 'ITM_RxBuffer'?
+   44 |  TxBuffer[0] = 0xFE;
+      |  ^~~~~~~~
+      |  ITM_RxBuffer
+../Library/PCA9685/PCA9685.c:46:34: error: 'devId' undeclared (first use in this function)
+   46 |  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+      |                                  ^~~~~
+../Library/PCA9685/PCA9685.c: In function 'setChannelPWM':
+../Library/PCA9685/PCA9685.c:65:2: error: 'TxBuffer' undeclared (first use in this function); did you mean 'ITM_RxBuffer'?
+   65 |  TxBuffer[0] = LED0_ON_L;
+      |  ^~~~~~~~
+      |  ITM_RxBuffer
+../Library/PCA9685/PCA9685.c:67:34: error: 'devId' undeclared (first use in this function)
+   67 |  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+      |                                  ^~~~~
+../Library/PCA9685/PCA9685.c:59:10: warning: unused variable 'lowByteOFF' [-Wunused-variable]
+   59 |  uint8_t lowByteOFF = valueOFF & 0xFF;
+      |          ^~~~~~~~~~
+../Library/PCA9685/PCA9685.c:58:10: warning: unused variable 'highByteOFF' [-Wunused-variable]
+   58 |  uint8_t highByteOFF = (valueOFF >> 8) & 0xFF;
+      |          ^~~~~~~~~~~
+make: *** [Library/PCA9685/subdir.mk:19: Library/PCA9685/PCA9685.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+15:14:11 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'setChannelPWM':
+../Library/PCA9685/PCA9685.c:62:10: warning: unused variable 'lowByteOFF' [-Wunused-variable]
+   62 |  uint8_t lowByteOFF = valueOFF & 0xFF;
+      |          ^~~~~~~~~~
+../Library/PCA9685/PCA9685.c:61:10: warning: unused variable 'highByteOFF' [-Wunused-variable]
+   61 |  uint8_t highByteOFF = (valueOFF >> 8) & 0xFF;
+      |          ^~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15244	     20	   1652	  16916	   4214	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+15:15:05 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15244	     20	   1652	  16916	   4214	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+15:32:58 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15244	     20	   1652	  16916	   4214	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+15:33:14 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'setChannelPWM' [-Wimplicit-function-declaration]
+   97 |   setChannelPWM(0, 20);
+      |   ^~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15248	     20	   1652	  16920	   4218	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+15:33:37 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'setChannelPWM' [-Wimplicit-function-declaration]
+   97 |   setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15248	     20	   1652	  16920	   4218	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+15:34:53 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:96:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+   96 |   pca9685_frequency(1000);
+      |   ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'setChannelPWM' [-Wimplicit-function-declaration]
+   97 |   setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15428	     20	   1652	  17100	   42cc	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+15:36:10 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Library/PCA9685/PCA9685.c: In function 'pca9685_frequency':
+../Library/PCA9685/PCA9685.c:48:14: warning: assignment to 'uint8_t' {aka 'unsigned char'} from 'uint8_t *' {aka 'unsigned char *'} makes integer from pointer without a cast [-Wint-conversion]
+   48 |  TxBuffer[1] = (uint8_t*) &freq;
+      |              ^
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:96:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+   96 |   pca9685_frequency(1000);
+      |   ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+   97 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15432	     20	   1652	  17104	   42d0	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+17:48:59 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Library/PCA9685/PCA9685.c: In function 'pca9685_setChannelPWM':
+../Library/PCA9685/PCA9685.c:72:10: warning: unused variable 'LEDn_OFF_H' [-Wunused-variable]
+   72 |  uint8_t LEDn_OFF_H = 0x09 + (channelNum * 4);
+      |          ^~~~~~~~~~
+../Library/PCA9685/PCA9685.c:71:10: warning: unused variable 'LEDn_OFF_L' [-Wunused-variable]
+   71 |  uint8_t LEDn_OFF_L = 0x08 + (channelNum * 4);
+      |          ^~~~~~~~~~
+../Library/PCA9685/PCA9685.c:70:10: warning: unused variable 'LEDn_ON_H' [-Wunused-variable]
+   70 |  uint8_t LEDn_ON_H = 0x07 + (channelNum * 4);
+      |          ^~~~~~~~~
+../Library/PCA9685/PCA9685.c:69:10: warning: unused variable 'LEDn_ON_L' [-Wunused-variable]
+   69 |  uint8_t LEDn_ON_L = 0x06 + (channelNum * 4);
+      |          ^~~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:96:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+   96 |   pca9685_frequency(1000);
+      |   ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+   97 |   pca9685_setChannelPWM(1, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15476	     20	   1652	  17148	   42fc	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+17:51:47 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:96:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+   96 |   pca9685_frequency(1000);
+      |   ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+   97 |   pca9685_setChannelPWM(3, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15476	     20	   1652	  17148	   42fc	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+17:52:07 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+   97 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15296	     20	   1652	  16968	   4248	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+17:53:13 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15296	     20	   1652	  16968	   4248	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+17:53:42 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+   97 |   pca9685_setChannelPWM(1, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15296	     20	   1652	  16968	   4248	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+17:54:43 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+   97 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15296	     20	   1652	  16968	   4248	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+17:56:22 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'pca9685_setChannelPWM':
+../Library/PCA9685/PCA9685.c:70:2: error: expected ',' or ';' before 'uint8_t'
+   70 |  uint8_t LEDn_ON_H = 0x07// + (channelNum * 4);
+      |  ^~~~~~~
+../Library/PCA9685/PCA9685.c:75:25: error: 'valueOFF' undeclared (first use in this function)
+   75 |  uint8_t highByteOFF = (valueOFF >> 8) & 0xFF;
+      |                         ^~~~~~~~
+../Library/PCA9685/PCA9685.c:75:25: note: each undeclared identifier is reported only once for each function it appears in
+../Library/PCA9685/PCA9685.c:82:16: error: 'LEDn_ON_H' undeclared (first use in this function); did you mean 'LEDn_ON_L'?
+   82 |  TxBuffer[0] = LEDn_ON_H;
+      |                ^~~~~~~~~
+      |                LEDn_ON_L
+../Library/PCA9685/PCA9685.c:86:16: error: 'LEDn_OFF_L' undeclared (first use in this function); did you mean 'LED0_OFF_L'?
+   86 |  TxBuffer[0] = LEDn_OFF_L;
+      |                ^~~~~~~~~~
+      |                LED0_OFF_L
+../Library/PCA9685/PCA9685.c:90:16: error: 'LEDn_OFF_H' undeclared (first use in this function); did you mean 'LED0_OFF_H'?
+   90 |  TxBuffer[0] = LEDn_OFF_H;
+      |                ^~~~~~~~~~
+      |                LED0_OFF_H
+make: *** [Library/PCA9685/subdir.mk:19: Library/PCA9685/PCA9685.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+17:56:30 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15272	     20	   1652	  16944	   4230	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+17:57:31 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'pca9685_setChannelPWM':
+../Library/PCA9685/PCA9685.c:72:10: warning: unused variable 'LEDn_OFF_H' [-Wunused-variable]
+   72 |  uint8_t LEDn_OFF_H = 0x09;// + (channelNum * 4);
+      |          ^~~~~~~~~~
+../Library/PCA9685/PCA9685.c:71:10: warning: unused variable 'LEDn_OFF_L' [-Wunused-variable]
+   71 |  uint8_t LEDn_OFF_L = 0x08;// + (channelNum * 4);
+      |          ^~~~~~~~~~
+../Library/PCA9685/PCA9685.c:70:10: warning: unused variable 'LEDn_ON_H' [-Wunused-variable]
+   70 |  uint8_t LEDn_ON_H = 0x07;// + (channelNum * 4);
+      |          ^~~~~~~~~
+../Library/PCA9685/PCA9685.c:69:10: warning: unused variable 'LEDn_ON_L' [-Wunused-variable]
+   69 |  uint8_t LEDn_ON_L = 0x06;// + (channelNum * 4);
+      |          ^~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15272	     20	   1652	  16944	   4230	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+18:00:42 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15272	     20	   1652	  16944	   4230	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+18:01:23 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+   97 |   pca9685_sleep(1);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:98:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+   98 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15384	     20	   1652	  17056	   42a0	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+18:02:14 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+   97 |   pca9685_sleep(1);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:98:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+   98 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15416	     20	   1652	  17088	   42c0	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+18:03:33 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+   97 |   pca9685_sleep(1);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:98:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+   98 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:101:2: error: 'TxBuffer' undeclared (first use in this function); did you mean 'ITM_RxBuffer'?
+  101 |  TxBuffer[0] = 0xFE;
+      |  ^~~~~~~~
+      |  ITM_RxBuffer
+../Core/Src/main.c:101:2: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:103:34: error: 'devId' undeclared (first use in this function)
+  103 |  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+      |                                  ^~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+18:03:51 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+   97 |   pca9685_sleep(1);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:98:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+   98 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15452	     20	   1652	  17124	   42e4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+18:04:41 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15452	     20	   1652	  17124	   42e4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+18:05:14 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15452	     20	   1652	  17124	   42e4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+18:05:25 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15452	     20	   1652	  17124	   42e4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+18:06:04 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'HalDelay'; did you mean 'HAL_Delay'? [-Wimplicit-function-declaration]
+   97 |   HalDelay(10);
+      |   ^~~~~~~~
+      |   HAL_Delay
+../Core/Src/main.c:98:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+   98 |   pca9685_sleep(1);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:99:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+   99 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+c:\st\stm32cubeide_1.11.2\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.100.202210260954\tools\arm-none-eabi\bin\ld.exe: ./Core/Src/main.o: in function `main':
+C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Debug/../Core/Src/main.c:97: undefined reference to `HalDelay'
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:65: i2c.elf] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+18:06:13 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:97:3: warning: implicit declaration of function 'Hal_Delay'; did you mean 'HAL_Delay'? [-Wimplicit-function-declaration]
+   97 |   Hal_Delay(10);
+      |   ^~~~~~~~~
+      |   HAL_Delay
+../Core/Src/main.c:98:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+   98 |   pca9685_sleep(1);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:99:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+   99 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+c:\st\stm32cubeide_1.11.2\stm32cubeide\plugins\com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.10.3-2021.10.win32_1.0.100.202210260954\tools\arm-none-eabi\bin\ld.exe: ./Core/Src/main.o: in function `main':
+C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Debug/../Core/Src/main.c:97: undefined reference to `Hal_Delay'
+collect2.exe: error: ld returned 1 exit status
+make: *** [makefile:65: i2c.elf] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+18:06:26 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:98:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+   98 |   pca9685_sleep(1);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:99:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+   99 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15532	     20	   1652	  17204	   4334	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+18:06:59 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  15532	     20	   1652	  17204	   4334	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+21:27:33 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.o"
+../Library/PCA9685/PCA9685.c: In function 'pca9685_frequency':
+../Library/PCA9685/PCA9685.c:49:2: error: expected ',' or ';' before 'TxBuffer'
+   49 |  TxBuffer[0] = 0xFE;
+      |  ^~~~~~~~
+At top level:
+../Library/PCA9685/PCA9685.c:12:17: warning: 'MAP' defined but not used [-Wunused-function]
+   12 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+make: *** [Library/PCA9685/subdir.mk:19: Library/PCA9685/PCA9685.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+21:27:52 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2c_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o"
+../Library/PCA9685/PCA9685.c:12:17: warning: 'MAP' defined but not used [-Wunused-function]
+   12 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32f4xx_hal_msp.d" -MT"Core/Src/stm32f4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32f4xx_it.d" -MT"Core/Src/stm32f4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_it.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32f4xx.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/system_stm32f4xx.d" -MT"Core/Src/system_stm32f4xx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/system_stm32f4xx.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:112:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  112 |   pca9685_sleep(1);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  113 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:115:3: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  115 |   printf("Hello");
+      |   ^~~~~~
+../Core/Src/main.c:115:3: warning: incompatible implicit declaration of built-in function 'printf'
+../Core/Src/main.c:21:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   20 | #include "main.h"
+  +++ |+#include <stdio.h>
+   21 | 
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22332	    120	   1744	  24196	   5e84	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+21:31:52 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:111:3: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  111 |   printf("Hello");
+      |   ^~~~~~
+../Core/Src/main.c:111:3: warning: incompatible implicit declaration of built-in function 'printf'
+../Core/Src/main.c:21:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   20 | #include "main.h"
+  +++ |+#include <stdio.h>
+   21 | 
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(1);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  114 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22340	    120	   1744	  24204	   5e8c	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+21:38:49 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-size   i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  22340	    120	   1744	  24204	   5e8c	i2c.elf
+Finished building: default.size.stdout
+ 
+21:39:26 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:111:3: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  111 |   printf("Hello");
+      |   ^~~~~~
+../Core/Src/main.c:111:3: warning: incompatible implicit declaration of built-in function 'printf'
+../Core/Src/main.c:21:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   20 | #include "main.h"
+  +++ |+#include <stdio.h>
+   21 | 
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(1);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  114 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22344	    120	   1744	  24208	   5e90	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+21:45:19 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(1);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  114 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:121:3: error: 'TxBuffer' undeclared (first use in this function); did you mean 'ITM_RxBuffer'?
+  121 |   TxBuffer[0] = PRE_SCALE_ADDRESS;
+      |   ^~~~~~~~
+      |   ITM_RxBuffer
+../Core/Src/main.c:121:3: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:123:35: error: 'devId' undeclared (first use in this function)
+  123 |   HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+      |                                   ^~~~~
+../Core/Src/main.c:128:42: error: lvalue required as unary '&' operand
+  128 |   HAL_I2C_Master_Transmit(&hi2c1, devId, &PRE_SCALE_ADDRESS, 1, 1000);
+      |                                          ^
+../Core/Src/main.c:136:3: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  136 |   printf("prescaler: %d\r\n", PRE_SCALE);
+      |   ^~~~~~
+../Core/Src/main.c:136:3: warning: incompatible implicit declaration of built-in function 'printf'
+../Core/Src/main.c:21:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   20 | #include "main.h"
+  +++ |+#include <stdio.h>
+   21 | 
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+21:45:58 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:104:16: error: 'PRE_SCALE_ADDRESS' undeclared (first use in this function)
+  104 |  TxBuffer[0] = PRE_SCALE_ADDRESS;
+      |                ^~~~~~~~~~~~~~~~~
+../Library/PCA9685/PCA9685.c:104:16: note: each undeclared identifier is reported only once for each function it appears in
+../Library/PCA9685/PCA9685.c:119:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(1);
+      |   ^~~~~~~~~~~~~
+At top level:
+../Library/PCA9685/PCA9685.c:12:17: warning: 'MAP' defined but not used [-Wunused-function]
+   12 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+make: *** [Library/PCA9685/subdir.mk:19: Library/PCA9685/PCA9685.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  114 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:121:3: warning: implicit declaration of function 'test' [-Wimplicit-function-declaration]
+  121 |   test();
+      |   ^~~~
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+21:46:24 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:112:43: error: lvalue required as unary '&' operand
+  112 |    HAL_I2C_Master_Transmit(&hi2c1, devId, &PRE_SCALE_ADDRESS, 1, 1000);
+      |                                           ^
+../Library/PCA9685/PCA9685.c:120:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  120 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:120:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+make: *** [Library/PCA9685/subdir.mk:19: Library/PCA9685/PCA9685.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(1);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  114 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:121:3: warning: implicit declaration of function 'test' [-Wimplicit-function-declaration]
+  121 |   test();
+      |   ^~~~
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+21:47:23 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:112:54: error: lvalue required as unary '&' operand
+  112 |    HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &PRE_SCALE_ADDRESS, 1, 1000);
+      |                                                      ^
+../Library/PCA9685/PCA9685.c:120:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  120 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:120:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+make: *** [Library/PCA9685/subdir.mk:19: Library/PCA9685/PCA9685.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+21:47:52 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:120:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  120 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:120:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  24188	    120	   1744	  26052	   65c4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+21:49:00 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:120:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  120 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:120:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  24188	    120	   1744	  26052	   65c4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:00:33 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:123:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  123 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:123:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(0);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  114 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:121:3: warning: implicit declaration of function 'test' [-Wimplicit-function-declaration]
+  121 |   test();
+      |   ^~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  24188	    120	   1744	  26052	   65c4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:01:41 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:123:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  123 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:123:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  24188	    120	   1744	  26052	   65c4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:04:17 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(0);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  114 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:116:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+  116 |   pca9685_frequency(24);
+      |   ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17388	     20	   1724	  19132	   4abc	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:04:48 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(0);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  114 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:116:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+  116 |   pca9685_frequency(25);
+      |   ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17388	     20	   1724	  19132	   4abc	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:05:18 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(0);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  114 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:116:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+  116 |   pca9685_frequency(50);
+      |   ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17388	     20	   1724	  19132	   4abc	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:06:19 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(0);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  114 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:116:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+  116 |   pca9685_frequency(1000);
+      |   ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17392	     20	   1724	  19136	   4ac0	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:06:57 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-size   i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  17392	     20	   1724	  19136	   4ac0	i2c.elf
+Finished building: default.size.stdout
+ 
+22:08:03 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:123:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  123 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:123:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17380	     20	   1724	  19124	   4ab4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:09:30 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17356	     20	   1724	  19100	   4a9c	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:10:49 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17344	     20	   1724	  19088	   4a90	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:12:12 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17344	     20	   1724	  19088	   4a90	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:13:01 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17344	     20	   1724	  19088	   4a90	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:13:54 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(0);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  114 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:116:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+  116 |   pca9685_frequency(1000);
+      |   ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17344	     20	   1724	  19088	   4a90	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:14:26 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17356	     20	   1724	  19100	   4a9c	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:15:27 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(0);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  114 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:116:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+  116 |   pca9685_frequency(1500);
+      |   ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17356	     20	   1724	  19100	   4a9c	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:17:06 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17356	     20	   1724	  19100	   4a9c	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:17:37 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17356	     20	   1724	  19100	   4a9c	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:17:57 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17356	     20	   1724	  19100	   4a9c	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:18:35 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+At top level:
+../Library/PCA9685/PCA9685.c:13:17: warning: 'MAP' defined but not used [-Wunused-function]
+   13 | static uint32_t MAP(uint32_t IN, uint32_t INmin, uint32_t INmax, uint32_t OUTmin, uint32_t OUTmax)
+      |                 ^~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17348	     20	   1724	  19092	   4a94	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:19:20 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(0);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  114 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:116:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+  116 |   pca9685_frequency(1000);
+      |   ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  17348	     20	   1724	  19092	   4a94	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:23:29 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Library/PCA9685/PCA9685.c: In function 'pca9685_enable':
+../Library/PCA9685/PCA9685.c:18:3: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   18 |   printf("pca9685 was turned on\r\n");
+      |   ^~~~~~
+../Library/PCA9685/PCA9685.c:18:3: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+../Library/PCA9685/PCA9685.c:22:3: warning: incompatible implicit declaration of built-in function 'printf'
+   22 |   printf("pca9685 was turned off\r\n");
+      |   ^~~~~~
+../Library/PCA9685/PCA9685.c:22:3: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c: In function 'pca9685_frequency':
+../Library/PCA9685/PCA9685.c:52:2: warning: incompatible implicit declaration of built-in function 'printf'
+   52 |  printf("Frequency was set: %d Hz\r\n", freq);
+      |  ^~~~~~
+../Library/PCA9685/PCA9685.c:52:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c: In function 'pca9685_setChannelPWM':
+../Library/PCA9685/PCA9685.c:97:2: warning: incompatible implicit declaration of built-in function 'printf'
+   97 |  printf("PWM was set on channel %d with duty %d %\r\n", channelNum, duty);
+      |  ^~~~~~
+../Library/PCA9685/PCA9685.c:97:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c:97:50: warning: unknown conversion type character '\x0d' in format [-Wformat=]
+   97 |  printf("PWM was set on channel %d with duty %d %\r\n", channelNum, duty);
+      |                                                  ^~
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:112:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  112 |   pca9685_sleep(0);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  113 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:115:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+  115 |   pca9685_frequency(1000);
+      |   ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22588	    120	   1744	  24452	   5f84	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:24:19 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'pca9685_enable':
+../Library/PCA9685/PCA9685.c:18:3: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   18 |   printf("pca9685 was turned on\r\n");
+      |   ^~~~~~
+../Library/PCA9685/PCA9685.c:18:3: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+../Library/PCA9685/PCA9685.c:22:3: warning: incompatible implicit declaration of built-in function 'printf'
+   22 |   printf("pca9685 was turned off\r\n");
+      |   ^~~~~~
+../Library/PCA9685/PCA9685.c:22:3: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c: In function 'pca9685_frequency':
+../Library/PCA9685/PCA9685.c:52:2: warning: incompatible implicit declaration of built-in function 'printf'
+   52 |  printf("Frequency was set: %d Hz\r\n", freq);
+      |  ^~~~~~
+../Library/PCA9685/PCA9685.c:52:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c: In function 'pca9685_setChannelPWM':
+../Library/PCA9685/PCA9685.c:97:2: warning: incompatible implicit declaration of built-in function 'printf'
+   97 |  printf("PWM was set on channel %d with duty %d %\r\n", channelNum, duty);
+      |  ^~~~~~
+../Library/PCA9685/PCA9685.c:97:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c:97:50: warning: unknown conversion type character '\x0d' in format [-Wformat=]
+   97 |  printf("PWM was set on channel %d with duty %d %\r\n", channelNum, duty);
+      |                                                  ^~
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: note: include '<stdio.h>' or provide a declaration of 'printf'
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22588	    120	   1744	  24452	   5f84	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:26:17 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:112:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  112 |   pca9685_sleep(0);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  113 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:115:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+  115 |   pca9685_frequency(1000);
+      |   ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22580	    120	   1744	  24444	   5f7c	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:28:30 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:112:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  112 |   pca9685_sleep(0);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  113 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:115:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+  115 |   pca9685_frequency(1500);
+      |   ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22580	    120	   1744	  24444	   5f7c	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:29:37 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:112:3: warning: implicit declaration of function 'pca9685_enable' [-Wimplicit-function-declaration]
+  112 |   pca9685_enable(1);
+      |   ^~~~~~~~~~~~~~
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(0);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  114 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:116:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+  116 |   pca9685_frequency(1500);
+      |   ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22892	    120	   1744	  24756	   60b4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:31:40 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'pca9685_enable':
+../Library/PCA9685/PCA9685.c:18:3: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   18 |   printf("pca9685 was turned on\r\n");
+      |   ^~~~~~
+../Library/PCA9685/PCA9685.c:18:3: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+../Library/PCA9685/PCA9685.c:22:3: warning: incompatible implicit declaration of built-in function 'printf'
+   22 |   printf("pca9685 was turned off\r\n");
+      |   ^~~~~~
+../Library/PCA9685/PCA9685.c:22:3: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c: In function 'pca9685_frequency':
+../Library/PCA9685/PCA9685.c:52:2: warning: incompatible implicit declaration of built-in function 'printf'
+   52 |  printf("Frequency was set: %d Hz\r\n", freq);
+      |  ^~~~~~
+../Library/PCA9685/PCA9685.c:52:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c: In function 'pca9685_setChannelPWM':
+../Library/PCA9685/PCA9685.c:97:2: warning: incompatible implicit declaration of built-in function 'printf'
+   97 |  printf("PWM was set on channel %d with duty %d %\r\n", channelNum, duty);
+      |  ^~~~~~
+../Library/PCA9685/PCA9685.c:97:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c:97:50: warning: unknown conversion type character '\x0d' in format [-Wformat=]
+   97 |  printf("PWM was set on channel %d with duty %d %\r\n", channelNum, duty);
+      |                                                  ^~
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: note: include '<stdio.h>' or provide a declaration of 'printf'
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22892	    120	   1744	  24756	   60b4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:32:32 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+../Library/PCA9685/PCA9685.c: In function 'pca9685_enable':
+../Library/PCA9685/PCA9685.c:18:3: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   18 |   printf("pca9685 was turned on\r\n");
+      |   ^~~~~~
+../Library/PCA9685/PCA9685.c:18:3: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+../Library/PCA9685/PCA9685.c:22:3: warning: incompatible implicit declaration of built-in function 'printf'
+   22 |   printf("pca9685 was turned off\r\n");
+      |   ^~~~~~
+../Library/PCA9685/PCA9685.c:22:3: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c: In function 'pca9685_frequency':
+../Library/PCA9685/PCA9685.c:52:2: warning: incompatible implicit declaration of built-in function 'printf'
+   52 |  printf("Frequency was set: %d Hz\r\n", freq);
+      |  ^~~~~~
+../Library/PCA9685/PCA9685.c:52:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c: In function 'pca9685_setChannelPWM':
+../Library/PCA9685/PCA9685.c:97:2: warning: incompatible implicit declaration of built-in function 'printf'
+   97 |  printf("PWM was set on channel %d with duty %d %\r\n", channelNum, duty);
+      |  ^~~~~~
+../Library/PCA9685/PCA9685.c:97:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c:97:50: warning: unknown conversion type character '\x0d' in format [-Wformat=]
+   97 |  printf("PWM was set on channel %d with duty %d %\r\n", channelNum, duty);
+      |                                                  ^~
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: note: include '<stdio.h>' or provide a declaration of 'printf'
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22892	    120	   1744	  24756	   60b4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:33:37 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:112:3: warning: implicit declaration of function 'pca9685_enable' [-Wimplicit-function-declaration]
+  112 |   pca9685_enable(1);
+      |   ^~~~~~~~~~~~~~
+../Core/Src/main.c:113:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+  113 |   pca9685_sleep(0);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:114:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+  114 |   pca9685_frequency(1500);
+      |   ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:116:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+  116 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22892	    120	   1744	  24756	   60b4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:37:12 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-size   i2c.elf 
+   text	   data	    bss	    dec	    hex	filename
+  22892	    120	   1744	  24756	   60b4	i2c.elf
+Finished building: default.size.stdout
+ 
+22:41:44 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:38:3: warning: implicit declaration of function 'pca9685_enable' [-Wimplicit-function-declaration]
+   38 |   pca9685_enable(1);
+      |   ^~~~~~~~~~~~~~
+../Core/Src/main.c:39:3: warning: implicit declaration of function 'pca9685_sleep' [-Wimplicit-function-declaration]
+   39 |   pca9685_sleep(0);
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:40:3: warning: implicit declaration of function 'pca9685_frequency' [-Wimplicit-function-declaration]
+   40 |   pca9685_frequency(1500);
+      |   ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:42:3: warning: implicit declaration of function 'pca9685_setChannelPWM' [-Wimplicit-function-declaration]
+   42 |   pca9685_setChannelPWM(0, 80);
+      |   ^~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22892	    120	   1744	  24756	   60b4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:42:16 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:39:3: warning: implicit declaration of function 'pca9685_enable' [-Wimplicit-function-declaration]
+   39 |   pca9685_enable(1);
+      |   ^~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22892	    120	   1744	  24756	   60b4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 
+22:42:54 **** Incremental Build of configuration Debug for project i2c ****
+make -j8 all 
+arm-none-eabi-gcc "../Library/PCA9685/PCA9685.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Library/PCA9685/PCA9685.d" -MT"Library/PCA9685/PCA9685.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Library/PCA9685/PCA9685.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I"C:/Users/user/Desktop/GL_tasks/workshop_6/i2c/Library/PCA9685" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Library/PCA9685/PCA9685.c: In function 'pca9685_enable':
+../Library/PCA9685/PCA9685.c:18:3: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+   18 |   printf("pca9685 was turned on\r\n");
+      |   ^~~~~~
+../Library/PCA9685/PCA9685.c:18:3: warning: incompatible implicit declaration of built-in function 'printf'
+../Library/PCA9685/PCA9685.c:2:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+    1 | #include <PCA9685.h>
+  +++ |+#include <stdio.h>
+    2 | 
+../Library/PCA9685/PCA9685.c:22:3: warning: incompatible implicit declaration of built-in function 'printf'
+   22 |   printf("pca9685 was turned off\r\n");
+      |   ^~~~~~
+../Library/PCA9685/PCA9685.c:22:3: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c: In function 'pca9685_frequency':
+../Library/PCA9685/PCA9685.c:52:2: warning: incompatible implicit declaration of built-in function 'printf'
+   52 |  printf("Frequency was set: %d Hz\r\n", freq);
+      |  ^~~~~~
+../Library/PCA9685/PCA9685.c:52:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c: In function 'pca9685_setChannelPWM':
+../Library/PCA9685/PCA9685.c:97:2: warning: incompatible implicit declaration of built-in function 'printf'
+   97 |  printf("PWM was set on channel %d with duty %d %\r\n", channelNum, duty);
+      |  ^~~~~~
+../Library/PCA9685/PCA9685.c:97:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Library/PCA9685/PCA9685.c:97:50: warning: unknown conversion type character '\x0d' in format [-Wformat=]
+   97 |  printf("PWM was set on channel %d with duty %d %\r\n", channelNum, duty);
+      |                                                  ^~
+../Library/PCA9685/PCA9685.c: In function 'test':
+../Library/PCA9685/PCA9685.c:119:4: warning: incompatible implicit declaration of built-in function 'printf'
+  119 |    printf("prescaler: %d\r\n", PRE_SCALE);
+      |    ^~~~~~
+../Library/PCA9685/PCA9685.c:119:4: note: include '<stdio.h>' or provide a declaration of 'printf'
+arm-none-eabi-gcc -o "i2c.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_6\i2c\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="i2c.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: i2c.elf
+ 
+arm-none-eabi-size   i2c.elf 
+arm-none-eabi-objdump -h -S  i2c.elf  > "i2c.list"
+   text	   data	    bss	    dec	    hex	filename
+  22892	    120	   1744	  24756	   60b4	i2c.elf
+Finished building: default.size.stdout
+ 
+Finished building: i2c.list
+ 

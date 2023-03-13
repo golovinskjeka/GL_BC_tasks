@@ -1,0 +1,30 @@
+#include <PCA9685.h>
+
+void test(){
+
+  HAL_Delay(10);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
+
+  uint8_t devId = 0x80;
+  uint8_t TxBuffer[0];
+
+  TxBuffer[0] = 0x00;
+  TxBuffer[1] = 0x01;
+  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+
+  TxBuffer[0] = 0x06;
+  TxBuffer[1] = 0x65;
+  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+
+  TxBuffer[0] = 0x07;
+  TxBuffer[1] = 0x08;
+  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+
+  TxBuffer[0] = 0x08;
+  TxBuffer[1] = 0x0F;
+  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+
+  TxBuffer[0] = 0x09;
+  TxBuffer[1] = 0x04;
+  HAL_I2C_Master_Transmit(&hi2c1, devId, (uint8_t*) &TxBuffer, 2, 1000);
+}

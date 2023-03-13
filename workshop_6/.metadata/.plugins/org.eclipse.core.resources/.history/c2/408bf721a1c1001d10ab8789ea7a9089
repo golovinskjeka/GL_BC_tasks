@@ -1,0 +1,11 @@
+#pragma once
+
+#include "stm32f4xx_hal.h"
+extern I2C_HandleTypeDef hi2c1;
+
+void enable(int8_t);
+void pca9685_sleep(int8_t);
+void pca9685_frequency(uint16_t freq);
+
+
+void test();
