@@ -1,0 +1,10 @@
+18:52:54 **** Incremental Build of configuration Debug for project training07 ****
+make -j8 all 
+arm-none-eabi-size   training07.elf 
+   text	   data	    bss	    dec	    hex	filename
+  23248	    132	  11036	  34416	   8670	training07.elf
+Finished building: default.size.stdout
+ 
+
+18:52:55 Build Finished. 0 errors, 0 warnings. (took 484ms)
+

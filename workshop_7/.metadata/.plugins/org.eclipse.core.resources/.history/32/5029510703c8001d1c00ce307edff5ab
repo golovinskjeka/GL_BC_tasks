@@ -1,0 +1,527 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2023 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#ifdef __GNUC__
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+/* USER CODE END Includes */
+
+/* Private typedef -----------------------------------------------------------*/
+/* USER CODE BEGIN PTD */
+enum {
+    FALSE = 0,
+    TRUE = 1
+};
+
+enum {
+    READ_CHIP = 0x03,
+    SECTOR_4KB_ERASE = 0x20,
+    CHIP_ERASE = 0x60,
+    BYTE_PROGRAM = 0x02,
+    AAI_WORD_PROGRAM = 0xad,
+    READ_STATUS_REG = 0x05,
+    EN_WR_STATUS_REG = 0x50,
+    WRITE_STATUS_REG = 0x01,
+    WRITE_ENABLE = 0x06,
+    WRIGHT_DISABLE = 0x04,
+    READ_ID = 0x90,
+    EBSY = 0x70,
+    DBSY = 0x80
+};
+
+enum {
+    START_ADDRESS = 0x00,
+    SECTOR_MAX_ADDRESS = 0x1ff,
+    SECTOR_DATA_MAX_ADDRESS = 0xfff
+};
+
+enum {
+    TX_UART_BUF_SIZE = 64,
+    RX_UART_BUF_SIZE = 5012,
+    UART_TIMEOUT = 10
+};
+
+enum {
+    DEL_SYMBOL = 0x7f,
+    TX_SPI_BUF_SIZE = 8,
+    RX_SPI_BUF_SIZE = 4096,
+    SPI_TIMEOUT = 100,
+    BYTES_IN_SECTOR = 4096,
+    EMPTY_BYTE = 0xff,
+    ENABLE_WRITE_TO_CHIP = 0,
+    NUMBER_OF_END_SYMBOLS = 3
+};
+
+enum {
+    NONE = 0,
+    ERASE_WHOLE_CHIP = 1,
+    ERASE_SECTOR = 2,
+    ERASE_TIME_CAPSULE
+};
+
+enum {
+    READ,
+    WRITE,
+    ERASE
+};
+
+char reciveUARTbuf[RX_UART_BUF_SIZE] = {0};
+char receiveUARTchar;
+char transmitUARTbuf[TX_UART_BUF_SIZE] = {0};
+
+char *rxUARTbuffPtr = reciveUARTbuf;
+
+uint8_t txSPIbuffer[TX_SPI_BUF_SIZE] = {0};
+uint8_t rxSPIbuffer[RX_SPI_BUF_SIZE] = {0};
+
+_Bool statusReading = FALSE;
+_Bool action = FALSE;
+volatile _Bool terminated = FALSE;
+volatile _Bool busy = FALSE;
+
+const char errorMessage[] = "\r\n>>! Wrong command or format. Format: [read/write/erase] [line/all/TimeCapsule] [0-511] [<text> (max 4092 symbols)] !<<\r\n";
+
+const char *time_capsule[] = {
+        "Hello world!\r\n"
+};
+
+uint16_t sizeOfTimeCapsule = (sizeof(time_capsule) / sizeof(time_capsule[0]));
+
+uint8_t confirmation = NONE;
+/* USER CODE END PTD */
+
+/* Private define ------------------------------------------------------------*/
+/* USER CODE BEGIN PD */
+/* USER CODE END PD */
+
+/* Private macro -------------------------------------------------------------*/
+/* USER CODE BEGIN PM */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
+static void flashChipErase(void);
+static void flashSpiRegSet(uint8_t *tx, uint16_t size);
+static void flashReadTimeCapsule(void);
+static void flashReadData(uint16_t sector_addr_from, uint16_t sector_addr_to, int16_t byte_addr, uint16_t rx_size);
+static void flashSpiRxTx(uint8_t *tx, uint8_t *rx, uint16_t tx_size, uint16_t rx_size);
+static void flashWriteTimeCapsule(void);
+static int flashWriteDataToSector(uint16_t sector_addr, int16_t byte_addr, const char* data);
+static void flashWriteByte(uint16_t sector_addr, int16_t byte_addr, uint8_t byte);
+static void flashMemInit(void);
+/* USER CODE END PM */
+
+/* Private variables ---------------------------------------------------------*/
+SPI_HandleTypeDef hspi1;
+
+UART_HandleTypeDef huart3;
+
+/* USER CODE BEGIN PV */
+
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+static void MX_GPIO_Init(void);
+static void MX_SPI1_Init(void);
+static void MX_USART3_UART_Init(void);
+/* USER CODE BEGIN PFP */
+
+/* USER CODE END PFP */
+
+/* Private user code ---------------------------------------------------------*/
+/* USER CODE BEGIN 0 */
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
+
+	switch (GPIO_Pin) {
+	case Btn_Up_Pin:
+		printf("11111\r\n");
+		flashChipErase();
+		break;
+	case Btn_Down_Pin:
+		printf("22222\r\n");
+		flashReadTimeCapsule();
+		break;
+
+	case Btn_Center_Pin:
+		printf("33333\r\n");
+		flashWriteTimeCapsule();
+		break;
+	}
+}
+
+static void flashChipErase(void){
+	txSPIbuffer[0] = WRITE_ENABLE;
+	flashSpiRegSet(txSPIbuffer, 1);
+
+	txSPIbuffer[0] = CHIP_ERASE;
+	flashSpiRegSet(txSPIbuffer, 1);
+	printf("Erasing whole flash SPI chip\r\n");
+}
+
+static void flashSpiRegSet(uint8_t *tx, uint16_t size){
+	HAL_GPIO_WritePin(GPIOD, SPI1_CS_Pin, GPIO_PIN_RESET);
+	HAL_SPI_Transmit(&hspi1, tx, size, SPI_TIMEOUT);
+	HAL_GPIO_WritePin(GPIOD, SPI1_CS_Pin, GPIO_PIN_SET);
+}
+
+static void flashReadTimeCapsule(void){
+	printf("Reading data from Time Capsule\r\n");
+	flashReadData(0, (sizeOfTimeCapsule-1), 0, 100);
+	printf("......Done!r\n");
+}
+
+static void flashReadData(uint16_t sector_addr_from, uint16_t sector_addr_to, int16_t byte_addr, uint16_t rx_size){
+	uint16_t sector_addr_curr = sector_addr_from;
+	while(sector_addr_curr <= sector_addr_to){
+		txSPIbuffer[0] = READ_CHIP;
+		txSPIbuffer[1] = (uint8_t)(sector_addr_curr >> 4);
+		txSPIbuffer[2] = (uint8_t)((sector_addr_curr << 4) | (byte_addr >> 8));
+		txSPIbuffer[3] = (uint8_t)byte_addr;
+
+		flashSpiRxTx(txSPIbuffer, rxSPIbuffer, 4, rx_size);
+
+		printf("Line %d: ", sector_addr_curr);						//let's name it for user "line" instead of "sector", that's more convenient ;)
+		sector_addr_curr++;
+		printf("%s", (rxSPIbuffer));
+	}
+}
+
+static void flashSpiRxTx(uint8_t *tx, uint8_t *rx, uint16_t tx_size, uint16_t rx_size){
+	HAL_GPIO_WritePin(GPIOD, SPI1_CS_Pin, GPIO_PIN_RESET);
+	HAL_SPI_Transmit(&hspi1, tx, tx_size, SPI_TIMEOUT);
+	HAL_SPI_Receive(&hspi1, rx, rx_size, SPI_TIMEOUT);
+	HAL_GPIO_WritePin(GPIOD, SPI1_CS_Pin, GPIO_PIN_SET);
+}
+
+static void flashWriteTimeCapsule(void){
+	printf("Writing the Time Capsule data\r\n");
+	for(uint16_t i = 0; i < sizeOfTimeCapsule; i++){
+		int8_t status;
+		status = flashWriteDataToSector(i, START_ADDRESS, time_capsule[i]);
+		if (status < 0) {
+			return;
+		}
+	}
+	printf("......Done!\r\n\r\n");
+}
+
+static int flashWriteDataToSector(uint16_t sector_addr, int16_t byte_addr, const char* data){
+	uint16_t symbolsCounter = 0;
+	const char *endPtr = data + (BYTES_IN_SECTOR - NUMBER_OF_END_SYMBOLS);
+
+	if ((endPtr - data) > (BYTES_IN_SECTOR - NUMBER_OF_END_SYMBOLS)){
+		printf("\r\n>>! Error. The data is too long. Maximum data length is 4092 symbols !<<\r\n");
+		return -1;
+	}
+
+	if (sector_addr > SECTOR_MAX_ADDRESS){
+		printf("\r\n>>! Error. The end of memory !<<\r\n");
+		return -1;
+	}
+
+	while(data < endPtr && *data != '\r'){
+		flashWriteByte(sector_addr, byte_addr, (uint8_t) *data);
+		data++;
+		byte_addr++;
+		symbolsCounter++;
+	}
+	flashWriteByte(sector_addr, byte_addr, '\r');
+	byte_addr++;
+	flashWriteByte(sector_addr, byte_addr, '\n');
+	byte_addr++;
+	flashWriteByte(sector_addr, byte_addr, '\0');
+	printf("Line %d has been written with %d printable symbols\r\n", sector_addr, symbolsCounter);
+
+	return 0;
+}
+
+static void flashWriteByte(uint16_t sector_addr, int16_t byte_addr, uint8_t byte){
+	txSPIbuffer[0] = WRITE_ENABLE;
+	flashSpiRegSet(txSPIbuffer, 1);
+
+	txSPIbuffer[0] = BYTE_PROGRAM;
+	txSPIbuffer[1] = (uint8_t)(sector_addr >> 4);
+	txSPIbuffer[2] = (uint8_t)((sector_addr << 4) | (byte_addr >> 8));
+	txSPIbuffer[3] = (uint8_t)byte_addr;
+	txSPIbuffer[4] = byte;
+	flashSpiRegSet(txSPIbuffer, 5);
+}
+
+
+//void flashWriteStatus(uint8_t command){
+//	txSPIbuffer[0] = EN_WR_STATUS_REG;
+//	flashSpiRegSet(txSPIbuffer, 1);
+//	txSPIbuffer[0] = WRITE_STATUS_REG;
+//	txSPIbuffer[1] = command;
+//	flashSpiRegSet(txSPIbuffer, 2);
+//}
+
+static void flashMemInit(void){
+    HAL_GPIO_WritePin(GPIOD, SPI1_CS_Pin, GPIO_PIN_SET);
+    txSPIbuffer[0] = EN_WR_STATUS_REG;
+    flashSpiRegSet(txSPIbuffer, 1);
+    HAL_Delay(100);
+}
+
+/* USER CODE END 0 */
+
+/**
+  * @brief  The application entry point.
+  * @retval int
+  */
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration--------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_SPI1_Init();
+  MX_USART3_UART_Init();
+  flashMemInit();
+  /* USER CODE BEGIN 2 */
+
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+
+
+
+  while (1)
+  {
+	/* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+  }
+  /* USER CODE END 3 */
+}
+
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
+void SystemClock_Config(void)
+{
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+
+  /** Configure the main internal regulator output voltage
+  */
+  __HAL_RCC_PWR_CLK_ENABLE();
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
+  /** Initializes the RCC Oscillators according to the specified parameters
+  * in the RCC_OscInitTypeDef structure.
+  */
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Initializes the CPU, AHB and APB buses clocks
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
+/**
+  * @brief SPI1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_SPI1_Init(void)
+{
+
+  /* USER CODE BEGIN SPI1_Init 0 */
+
+  /* USER CODE END SPI1_Init 0 */
+
+  /* USER CODE BEGIN SPI1_Init 1 */
+
+  /* USER CODE END SPI1_Init 1 */
+  /* SPI1 parameter configuration*/
+  hspi1.Instance = SPI1;
+  hspi1.Init.Mode = SPI_MODE_MASTER;
+  hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+  hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
+  hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi1.Init.CRCPolynomial = 10;
+  if (HAL_SPI_Init(&hspi1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN SPI1_Init 2 */
+
+  /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
+  * @brief USART3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART3_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART3_Init 0 */
+
+  /* USER CODE END USART3_Init 0 */
+
+  /* USER CODE BEGIN USART3_Init 1 */
+
+  /* USER CODE END USART3_Init 1 */
+  huart3.Instance = USART3;
+  huart3.Init.BaudRate = 115200;
+  huart3.Init.WordLength = UART_WORDLENGTH_8B;
+  huart3.Init.StopBits = UART_STOPBITS_1;
+  huart3.Init.Parity = UART_PARITY_NONE;
+  huart3.Init.Mode = UART_MODE_TX_RX;
+  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART3_Init 2 */
+
+  /* USER CODE END USART3_Init 2 */
+
+}
+
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(SPI1_CS_GPIO_Port, SPI1_CS_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : Btn_Up_Pin Btn_Down_Pin */
+  GPIO_InitStruct.Pin = Btn_Up_Pin|Btn_Down_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : Btn_Center_Pin */
+  GPIO_InitStruct.Pin = Btn_Center_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(Btn_Center_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : SPI1_CS_Pin */
+  GPIO_InitStruct.Pin = SPI1_CS_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(SPI1_CS_GPIO_Port, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+
+}
+
+/* USER CODE BEGIN 4 */
+
+/* USER CODE END 4 */
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
+void Error_Handler(void)
+{
+  /* USER CODE BEGIN Error_Handler_Debug */
+  /* User can add his own implementation to report the HAL error return state */
+  __disable_irq();
+  while (1)
+  {
+  }
+  /* USER CODE END Error_Handler_Debug */
+}
+
+#ifdef  USE_FULL_ASSERT
+/**
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
+void assert_failed(uint8_t *file, uint32_t line)
+{
+  /* USER CODE BEGIN 6 */
+  /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+  /* USER CODE END 6 */
+}
+#endif /* USE_FULL_ASSERT */

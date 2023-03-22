@@ -1,0 +1,50 @@
+18:56:48 **** Incremental Build of configuration Debug for project spi ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'flashChipErase':
+../Core/Src/main.c:178:2: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  178 |  printf("Erasing whole flash SPI chip\r\n");
+      |  ^~~~~~
+../Core/Src/main.c:178:2: warning: incompatible implicit declaration of built-in function 'printf'
+../Core/Src/main.c:21:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   20 | #include "main.h"
+  +++ |+#include <stdio.h>
+   21 | 
+../Core/Src/main.c: In function 'flashReadTimeCapsule':
+../Core/Src/main.c:188:2: warning: incompatible implicit declaration of built-in function 'printf'
+  188 |  printf("Reading data from Time Capsule\r\n");
+      |  ^~~~~~
+../Core/Src/main.c:188:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'flashReadData':
+../Core/Src/main.c:203:3: warning: incompatible implicit declaration of built-in function 'printf'
+  203 |   printf("Line %d: ", sector_addr_curr);
+      |   ^~~~~~
+../Core/Src/main.c:203:3: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'flashWriteTimeCapsule':
+../Core/Src/main.c:217:2: warning: incompatible implicit declaration of built-in function 'printf'
+  217 |  printf("Writing the Time Capsule data\r\n");
+      |  ^~~~~~
+../Core/Src/main.c:217:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Core/Src/main.c: In function 'flashWriteDataToSector':
+../Core/Src/main.c:242:2: warning: incompatible implicit declaration of built-in function 'printf'
+  242 |  printf("Line %d has been written with %d printable symbols\r\n", sector_addr, symbolsCounter);
+      |  ^~~~~~
+../Core/Src/main.c:242:2: note: include '<stdio.h>' or provide a declaration of 'printf'
+At top level:
+../Core/Src/main.c:259:13: warning: 'flashMemInit' defined but not used [-Wunused-function]
+  259 | static void flashMemInit(void){
+      |             ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "spi.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\user\Desktop\GL_tasks\workshop_7\spi\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="spi.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: spi.elf
+ 
+arm-none-eabi-size   spi.elf 
+arm-none-eabi-objdump -h -S  spi.elf  > "spi.list"
+   text	   data	    bss	    dec	    hex	filename
+  18004	    172	   5852	  24028	   5ddc	spi.elf
+Finished building: default.size.stdout
+ 
+Finished building: spi.list
+ 
+
+18:56:51 Build Finished. 0 errors, 7 warnings. (took 2s.708ms)
+
